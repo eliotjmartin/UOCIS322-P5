@@ -98,7 +98,7 @@ def _submit():
     else: 
         app.logger.debug("Internal Error")
         return render_template("submissionError.html")
-    result = {"message": "Success"}
+    # result = {"message": "Success"}
     return redirect(url_for("index"))
         
 
