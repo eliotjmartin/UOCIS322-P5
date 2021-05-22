@@ -12,6 +12,7 @@ from flask.helpers import url_for
 from flask.templating import render_template  # Replacement for datetime, based on moment.js
 import acp_times  # Brevet time calculations
 import config
+import insertion_retrieval
 from pymongo import MongoClient
 
 import logging
@@ -73,7 +74,7 @@ def _calc_times():
 
 @app.route("/_display", methods=['POST'])
 def _display():
-    entries = db.tododb.find()
+    entries = insertion_retrieval.retrieval(db)
     if entries.count() == 0:
         return render_template("submissionError.html")
     return render_template("display.html", entries=entries)
@@ -87,10 +88,7 @@ def _submit():
     closeList = request.form.getlist("close")
     closeList = [i for i in closeList if i]
     if len(kmList) == len(openList) == len(closeList) != 0:
-        db.tododb.remove({})  # empty collection
-        for i in range(len(kmList)):
-            add = {'km': kmList[i], "open": openList[i], "close": closeList[i]}
-            db.tododb.insert_one(add)
+        insertion_retrieval.insert(db, kmList, openList, closeList)
     elif len(kmList) == 0:
         # problem print error
         app.logger.debug("Error: length 0")

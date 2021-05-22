@@ -7,6 +7,10 @@ Eliot Martin | eliotm@uoregon.edu
 This is a reimplementation of the RUSA ACP controle time calculator (https://rusa.org/octime_acp.html). This API is 
 implemented with Flask and AJAX and tested fully using nose tests (located in the tests folder). Additionally, submit and display buttons exist; by clicking submit, calculated times are saved into a MongoDB database. Upon clicking display, these values are displayed on separate page. 
 
+## Tests
+
+In the tests folder their are tests for 200, 300, 400, 600, and 1000 km brevets to ensure proper calculations. There is also a simple test for the insertion and retrieval of data into the database (test_insertion_retrieval.py).   
+
 ## Algorithm
 
 Controle open and close times are calculated by dividing the controle distance by the maximum and minimum speeds, respectively (maximum and minimum speeds are outlined here https://rusa.org/pages/acp-brevet-control-times-calculator). This time is rounded to the nearest minute.
